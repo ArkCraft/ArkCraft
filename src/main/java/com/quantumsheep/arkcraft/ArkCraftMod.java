@@ -56,7 +56,7 @@ public class ArkCraftMod {
 	{
 		EntityRegistry.registerGlobalEntityID(EntitySpear.class, "entitySpear", EntityRegistry.findGlobalUniqueEntityId(), new Color(0, 255, 0).getRGB(), new Color(255, 0, 0).getRGB());
 		EntityRegistry.registerModEntity(EntitySpear.class, "entitySpear", 420, this.instance, 40, 1, true);
-		
+		//
 		EntityRegistry.registerGlobalEntityID(EntityGiantSpider.class, "giantSpider", EntityRegistry.findGlobalUniqueEntityId(), 0x7AE8FF, 0x47FFE2);
 		
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
