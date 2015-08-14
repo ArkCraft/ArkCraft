@@ -1,0 +1,16 @@
+[
+{
+  "modid": "arkcraft",
+  "name": "ArkCraft Mod",
+  "description": "Mod of ArkCraft.",
+  "version": "1.0.1",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["QuantumSheep"],
+  "credits": "Just for ArkCraft server",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
