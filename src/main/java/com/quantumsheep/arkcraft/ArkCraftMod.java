@@ -22,6 +22,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -40,13 +41,13 @@ public class ArkCraftMod {
 	public static CommonProxy proxy;
 
 	public static Item weaponSpear;
-
+	
 	public static final Logger LOGGER = LogManager.getLogger(References.NAME);
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		weaponSpear = new WeaponSpear().setUnlocalizedName("weaponSpear").setTextureName(References.MODID + ":itemtutoriel").setCreativeTab(CreativeTabs.tabMaterials);
+		weaponSpear = new WeaponSpear().setUnlocalizedName("weaponSpear").setTextureName(References.MODID + ":weaponSpear").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		GameRegistry.registerItem(weaponSpear, "weapon_spear");
 	}

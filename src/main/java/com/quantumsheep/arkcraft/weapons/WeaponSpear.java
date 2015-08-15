@@ -20,61 +20,39 @@ import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public class WeaponSpear extends Item {
   
-	public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_)
-	   {
-	       int j = this.getMaxItemUseDuration(p_77615_1_) - p_77615_4_;
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useTime)
+    {
+         int j = this.getMaxItemUseDuration(stack) - useTime;
+         float f = (float)j / 5.0F;
+         f = (f * f + f * 2.0F) / 3.0F;
 
-	       ArrowLooseEvent event = new ArrowLooseEvent(p_77615_3_, p_77615_1_, j);
-	       MinecraftForge.EVENT_BUS.post(event);
-	       if (event.isCanceled())
-	       {
-	           return;
-	       }
-	       j = event.charge;
+         if ((double)f < 0.1D)
+         {
+             return;
+         }
 
-	       boolean flag = p_77615_3_.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, p_77615_1_) > 0;
+         if (f > 1.0F)
+         {
+             f = 1.0F;
+         }
 
-	       if (flag || p_77615_3_.inventory.hasItem(ArkCraftMod.weaponSpear)) //Ici, change par le nom de ton item (Inutile dans le contexte, mais laise toujours )
-	       {
-	           float f = (float)j / 5.0F;
-	           f = (f * f + f * 2.0F) / 3.0F;
+         EntitySpear entityarrow = new EntitySpear(world, player, f * 2.0F);
 
-	           if ((double)f < 0.1D)
-	           {
-	               return;
-	           }
+         if (f == 1.0F)
+         {
+             entityarrow.setIsCritical(true);
+         }
 
-	           if (f > 1.0F)
-	           {
-	               f = 1.0F;
-	           }
+         world.playSoundAtEntity(player, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-	           EntitySpear entityarrow = new EntitySpear(p_77615_2_, p_77615_3_, f * 2.0F); //Tu a juste a changer le nom de l'entity ici
+         player.setCurrentItemOrArmor(0, null);
+         player.inventory.markDirty();
 
-	           if (f == 1.0F)
-	           {
-	               entityarrow.setIsCritical(true);
-	           }
-
-
-	           p_77615_1_.damageItem(1, p_77615_3_);
-	           p_77615_2_.playSoundAtEntity(p_77615_3_, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-	           if (flag)
-	           {
-	               entityarrow.canBePickedUp = 2;
-	           }
-	           else
-	           {
-	               p_77615_3_.inventory.consumeInventoryItem(Items.arrow); //Ici, change aussi par ton item
-	           }
-
-	           if (!p_77615_2_.isRemote)
-	           {
-	               p_77615_2_.spawnEntityInWorld(entityarrow);
-	           }
-	       }
-	   }
+         if (!world.isRemote)
+         {
+             world.spawnEntityInWorld(entityarrow);
+         }
+    }
 	
 		public ItemStack onEaten(ItemStack p_77654_1_, World p_77654_2_, EntityPlayer p_77654_3_)
 	    {
