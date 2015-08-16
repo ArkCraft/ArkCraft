@@ -21,14 +21,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
 
 @Mod(modid = References.MODID, name = "ArkCraft Mod", version = References.VERSION)
 
@@ -47,7 +46,7 @@ public class ArkCraftMod {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		weaponSpear = new WeaponSpear().setUnlocalizedName("weaponSpear").setTextureName(References.MODID + ":weaponSpear").setCreativeTab(CreativeTabs.tabMaterials);
+		weaponSpear = new WeaponSpear().setUnlocalizedName("weaponSpear").setTextureName(References.MODID + ":weaponSpear").setCreativeTab(tabArkCraft);
 		
 		GameRegistry.registerItem(weaponSpear, "weapon_spear");
 	}
@@ -62,6 +61,8 @@ public class ArkCraftMod {
 		
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
 		proxy.registerRender();
+		
+		GameRegistry.addRecipe(new ItemStack (weaponSpear,1), new Object[]{" FW"," W ","W  ",'W', Blocks.planks,'F', Items.flint});
 	}
 	
 	@EventHandler
@@ -69,4 +70,12 @@ public class ArkCraftMod {
 	{
 
 	}
+	
+	
+	public static CreativeTabs tabArkCraft = new CreativeTabs("tabArkCraft") {
+		@Override
+		public Item getTabIconItem(){
+			return new ItemStack (weaponSpear).getItem();
+		}
+	};
 }
